@@ -2,6 +2,7 @@
 # $GIT_DIR/info/exclude or the core.excludesFile configuration variable as
 # described in https://git-scm.com/docs/gitignore
 
+
 *.egg-info
 *.pot
 *.py[co]
@@ -49,6 +50,8 @@ ipython_config.py
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
+
 
 # Generated files
 .idea/**/contentModel.xml
