@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %} List of restaurants {% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h3 class="text-center">We found the following restaurants in {{location}}</h3>
+    <hr>
+    <div class="row mx-3">
+        {% for restaurant in rec %}
+        <div class="card mx-2  my-2" style="width: 18rem;">
+            <a href="{% url 'detail' restaurant.id %}">
+                <img src="{% static 'images/blog/1.jpg' %}" class="card-img-top my-2">
+            </a>
+            <div class="card-body">
+                <h6 class="card-title">{{restaurant.rest_name}}</h6>
+                <hr>
+                <p class="card-text">City: {{restaurant.rest_city}}</p>
+                <p class="card-text">Rating: {{restaurant.rest_rating}}</p>
+                <a href="{% url 'detail' restaurant.id %}" class="btn btn-primary">View restaurant details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%endblock%}

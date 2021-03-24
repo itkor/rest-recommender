@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<!-- add JQuery for -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<!--- Add Select2 for autocomplete functionality with bootstrap theme -->
+<script>
+    $(document).ready(function() {
+        $('#location').select2({
+            minimumInputLength: 3,
+            theme: "bootstrap4",
+        });
+        $('#spec_diet').select2({
+            theme: "bootstrap4",
+        });
+        $('#cuisines').select2({
+            theme: "bootstrap4",
+        });
+        $('#meals').select2({
+            theme: "bootstrap4",
+        });
+        $('#features').select2({
+            theme: "bootstrap4",
+        });
+    });
+</script>
+
+<body>
+    <div class="container align-content-center"><br>
+        <h3 class="text-center"> What sort of restaurants are you looking for?</h3>
+        <form method='POST' action="{% url 'result' %}" class="bg-white border px-4 py-4 my-5"> {% csrf_token %}
+            <div class="row align-content-center">
+                <div class="col">
+                    <label for="location">Location:</label><br>
+                    <select class="form-control" id="location" name="location" style="width: 100%">
+                        {%for city in cities %}
+                        <option value="{{city}}">{{city}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="spec_diet" class="form-label">Special Diet</label>
+                    <select class="form-control" id="spec_diet" name="spec_diet" multiple="multiple">
+                        {%for spec_diet in spec_diets %}
+                        <option value="{{spec_diet}}">{{spec_diet}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="cuisines" class="form-label">Cuisine</label>
+                    <select class="form-control" id="cuisines" name="cuisines" multiple="multiple"><br>
+                        {%for cuisine in cuisines %}
+                        <option value="{{cuisine}}">{{cuisine}}</option>
+                        {% endfor %}
+                        <!-- <option value="">Select a cuisine</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="row align-content-center">
+                <div class="col">
+                    <label for="meals" class="form-label">Meal Type</label><br>
+                    <select class="form-control" id="meals" name="meals" multiple="multiple">
+                        {%for meal in meals %}
+                        <option value="{{meal}}">{{meal}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="features">Extra Features:</label><br>
+                    <select class="form-control" id="features" name="features" multiple="multiple">
+                        {%for feature in features %}
+                        <option value="{{feature}}">{{feature}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col my-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="order_online" id="order_online">
+                        <label class="form-check-label" for="order_online">
+                            Online ordering
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="safety_measures" id="safety_measures">
+                        <label class="form-check-label" for="safety_measures">
+                            Corona Safety Measures
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="michelin_label" id="michelin_label">
+                        <label class="form-check-label" for="michelin_label">
+                            Michelin Label
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="justify-content-center">
+                <button class="btn btn-primary justify-content-center" type="submit"> Find restaurants</button>
+            </div>
+        </form>
+        {%endblock%}
+    </div>
+</body>
